@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Search } from "lucide-react";
@@ -51,7 +49,7 @@ interface FoodItem {
 	saturatedFats: number;
 }
 
-export default function FoodCalorieChecker() {
+function FoodCalorieChecker() {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const { data, error, isLoading, refetch } = useQuery({
@@ -103,51 +101,64 @@ export default function FoodCalorieChecker() {
 							<CardHeader className="pb-2">
 								<CardTitle>{item.displayName}</CardTitle>
 								<CardDescription>
-									Food Code: {item.foodCode}
+									<div>Food Code: {item.foodCode}</div>
+									<div>Calories: {item.calories}</div>
+									<div>
+										Portion: {item.portionAmount}{" "}
+										{item.portionDisplayName}
+									</div>
 								</CardDescription>
 							</CardHeader>
 							<Accordion type="single" collapsible>
 								<AccordionItem value="details">
 									<AccordionTrigger className="px-6">
-										View Details
+										Show Details
 									</AccordionTrigger>
 									<AccordionContent>
 										<CardContent>
 											<dl className="grid grid-cols-2 gap-2 text-sm">
 												<div>
 													<dt className="font-semibold">
-														Calories:
-													</dt>
-													<dd>{item.calories}</dd>
-												</div>
-												<div>
-													<dt className="font-semibold">
-														Portion:
+														Portion Default:
 													</dt>
 													<dd>
-														{item.portionAmount}{" "}
-														{
-															item.portionDisplayName
-														}
+														{item.portionDefault}
 													</dd>
 												</div>
 												<div>
 													<dt className="font-semibold">
-														Saturated Fats:
+														Factor:
+													</dt>
+													<dd>{item.factor}</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Increment:
+													</dt>
+													<dd>{item.increment}</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Multiplier:
+													</dt>
+													<dd>{item.multiplier}</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Grains:
 													</dt>
 													<dd>
-														{item.saturatedFats.toFixed(
+														{item.grains.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Whole Grains:
+													</dt>
+													<dd>
+														{item.wholeGrains.toFixed(
 															2
 														)}
-														g
-													</dd>
-												</div>
-												<div>
-													<dt className="font-semibold">
-														Fruits:
-													</dt>
-													<dd>
-														{item.fruits.toFixed(2)}
 													</dd>
 												</div>
 												<div>
@@ -162,10 +173,133 @@ export default function FoodCalorieChecker() {
 												</div>
 												<div>
 													<dt className="font-semibold">
-														Grains:
+														Orange Vegetables:
 													</dt>
 													<dd>
-														{item.grains.toFixed(2)}
+														{item.orangeVegetables.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Dark Green Vegetables:
+													</dt>
+													<dd>
+														{item.drkgreenVegetables.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Starchy Vegetables:
+													</dt>
+													<dd>
+														{item.starchyVegetables.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Other Vegetables:
+													</dt>
+													<dd>
+														{item.otherVegetables.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Fruits:
+													</dt>
+													<dd>
+														{item.fruits.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Milk:
+													</dt>
+													<dd>
+														{item.milk.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Meats:
+													</dt>
+													<dd>
+														{item.meats.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Soy:
+													</dt>
+													<dd>
+														{item.soy.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Dry Beans Peas:
+													</dt>
+													<dd>
+														{item.drybeansPeas.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Oils:
+													</dt>
+													<dd>
+														{item.oils.toFixed(2)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Solid Fats:
+													</dt>
+													<dd>
+														{item.solidFats.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Added Sugars:
+													</dt>
+													<dd>
+														{item.addedSugars.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Alcohol:
+													</dt>
+													<dd>
+														{item.alcohol.toFixed(
+															2
+														)}
+													</dd>
+												</div>
+												<div>
+													<dt className="font-semibold">
+														Saturated Fats:
+													</dt>
+													<dd>
+														{item.saturatedFats.toFixed(
+															2
+														)}
+														g
 													</dd>
 												</div>
 											</dl>
@@ -186,3 +320,5 @@ export default function FoodCalorieChecker() {
 		</div>
 	);
 }
+
+export default FoodCalorieChecker;
